@@ -1,9 +1,14 @@
-import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 /**
  * @abstract AbstractTimeEntity
  */
-export abstract class AbstractTimeEntity {
+export abstract class AbstractTimeEntity extends BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 
