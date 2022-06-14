@@ -8,6 +8,15 @@
     "tsConfigPath": "apps/gateway/tsconfig.app.json"
   },
   "projects": {
+    "gateway": {
+      "type": "application",
+      "root": "apps/gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gateway/tsconfig.app.json"
+      }
+    },
     "auth": {
       "type": "application",
       "root": "apps/auth",
@@ -15,15 +24,6 @@
       "sourceRoot": "apps/auth/src",
       "compilerOptions": {
         "tsConfigPath": "apps/auth/tsconfig.app.json"
-      }
-    },
-    "database": {
-      "type": "library",
-      "root": "libs/database",
-      "entryFile": "index",
-      "sourceRoot": "libs/database/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
     },
     "common": {
@@ -35,13 +35,13 @@
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
     },
-    "gateway": {
-      "type": "application",
-      "root": "apps/gateway",
-      "entryFile": "main",
-      "sourceRoot": "apps/gateway/src",
+    "database": {
+      "type": "library",
+      "root": "libs/database",
+      "entryFile": "index",
+      "sourceRoot": "libs/database/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gateway/tsconfig.app.json"
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
     }
   }
