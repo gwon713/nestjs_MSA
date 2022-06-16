@@ -1,10 +1,15 @@
 import { Injectable, LogLevel } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { LoggerOptions } from 'typeorm';
+import { Environment } from '../constant';
 
 @Injectable()
 export class CustomConfigService {
   constructor(private readonly configService: ConfigService) {}
+
+  get nodeEnv(): Environment {
+    return this.configService.get<Environment>('NODE_ENV', Environment.DEFAULT);
+  }
 
   get logLevel(): LogLevel {
     return this.configService.get<LogLevel>('LOG_LEVEL', <LogLevel>'debug');

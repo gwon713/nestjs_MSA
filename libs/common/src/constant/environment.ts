@@ -1,4 +1,4 @@
-export enum EnvironmentType {
+export enum Environment {
   DEFAULT = '',
   DEVELOPMENT = 'development',
   PRODUCTION = 'production',
