@@ -1,15 +1,11 @@
-postgres:
-  image: postgres:14.3-bullseye
-  container_name: postgres
-  hostname: postgres
-  ports:
-    - 5432:5432
-  restart: always
-  deploy:
-    resources:
-      limits:
-        cpus: '0.80'
-        memory: '10g'
-  environment:
-    - POSTGRES_USER=postgres
-    - POSTGRES_PASSWORD=postgres
+services:
+  postgres:
+    image: postgres:14.3-bullseye
+    container_name: postgres
+    hostname: postgres
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres

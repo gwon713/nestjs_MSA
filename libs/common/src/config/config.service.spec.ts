@@ -11,8 +11,8 @@ describe('ConfigService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({
-          cache: false,
-          isGlobal: false,
+          cache: true,
+          isGlobal: true,
           ignoreEnvFile: false,
           envFilePath: [
             join(__dirname, '../../../../env/', `${Environment.TEST}.env`),
