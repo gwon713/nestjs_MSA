@@ -1,2 +1,2 @@
-export * from './abstract-time.entity';
+export * from './abstract.entity';
 export * from './base-user.entity';

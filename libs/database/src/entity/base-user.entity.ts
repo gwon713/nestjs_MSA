@@ -1,6 +1,6 @@
 import { UserSocialRouteType, UserStatusType } from '@libs/common/constant';
-import { Column, Entity, Generated, PrimaryGeneratedColumn } from 'typeorm';
-import { AbstractTimeEntity } from '.';
+import { Column, Entity } from 'typeorm';
+import { AbstractEntity } from '.';
 
 /**
  * @entity
@@ -8,22 +8,7 @@ import { AbstractTimeEntity } from '.';
  * @extends AbstractTimeEntity
  */
 @Entity('base_user')
-export class BaseUserEntity extends AbstractTimeEntity {
-  @PrimaryGeneratedColumn('uuid', {
-    name: 'id',
-    comment: 'user id',
-  })
-  id: string;
-
-  @Column({
-    name: 'seq',
-    type: 'int8',
-    unique: true,
-    comment: 'Sequence Index',
-  })
-  @Generated('increment')
-  seq!: number;
-
+export class BaseUserEntity extends AbstractEntity {
   @Column({
     name: 'email',
     type: 'varchar',
