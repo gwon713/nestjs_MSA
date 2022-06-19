@@ -3,6 +3,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { CustomConfigService } from '@libs/common/config/config.service';
 import { CommonModule } from '@libs/common/common.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { AbstractEntity, BaseUserEntity } from './entity';
 @Module({
   imports: [
     CommonModule,
@@ -17,7 +18,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
         password: config.dbPassword,
         database: config.dbDatabase,
         schema: config.dbSchema,
-        // entities: getMetadataArgsStorage().tables.map((tbl) => tbl.target),
+        entities: [AbstractEntity, BaseUserEntity],
         migrations: [],
         subscribers: [],
         synchronize: config.dbSync,

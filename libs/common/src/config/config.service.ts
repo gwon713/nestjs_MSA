@@ -53,4 +53,24 @@ export class CustomConfigService {
       <LoggerOptions>'error',
     );
   }
+
+  get rmqProto(): string {
+    return this.configService.get<string>('RMQ_PROTO', 'amqp');
+  }
+
+  get rmqHost(): string {
+    return this.configService.get<string>('RMQ_HOST', 'localhost');
+  }
+
+  get rmqPort(): number {
+    return this.configService.get<number>('RMQ_PORT', 5672);
+  }
+
+  get rmqUser(): string {
+    return this.configService.get<string>('RMQ_USER', 'rabbitmq');
+  }
+
+  get rmqPass(): string {
+    return this.configService.get<string>('RMQ_PASS', 'rabbitmq');
+  }
 }

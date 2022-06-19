@@ -96,6 +96,45 @@ describe('ConfigService', () => {
 
   test(`dbDebug 가져오기`, () => {
     console.log(service.dbDebug);
+    if (typeof service.dbDebug == 'string') {
+      expect(
+        [
+          'all',
+          'query',
+          'schema',
+          'error',
+          'warn',
+          'info',
+          'log',
+          'migration',
+        ].includes(service.dbDebug),
+      ).toBe(true);
+    }
     expect(service.dbDebug).toBeDefined();
+  });
+
+  test(`rmqProto 가져오기`, () => {
+    console.log(service.rmqProto);
+    expect(service.rmqProto).toBeDefined();
+  });
+
+  test(`rmqHost 가져오기`, () => {
+    console.log(service.rmqHost);
+    expect(service.rmqHost).toBeDefined();
+  });
+
+  test(`rmqPort 가져오기`, () => {
+    console.log(service.rmqPort);
+    expect(service.rmqPort).toBeDefined();
+  });
+
+  test(`rmqUser 가져오기`, () => {
+    console.log(service.rmqUser);
+    expect(service.rmqUser).toBeDefined();
+  });
+
+  test(`rmqPass 가져오기`, () => {
+    console.log(service.rmqPass);
+    expect(service.rmqPass).toBeDefined();
   });
 });
