@@ -6,7 +6,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AuthService {
   constructor(private readonly baseUserRepo: BaseUserRepository) {}
-  getHello(): string {
+  async getHello(): Promise<string> {
     return 'Hello World!';
   }
   async registerUser(): Promise<BaseUserEntity> {
