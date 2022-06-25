@@ -73,4 +73,11 @@ export class CustomConfigService {
   get rmqPass(): string {
     return this.configService.get<string>('RMQ_PASS', 'rabbitmq');
   }
+
+  get rmqUrl(): string {
+    return this.configService.get<string>(
+      'RMQ_URL',
+      `${this.rmqProto}://${this.rmqUser}:${this.rmqPass}@${this.rmqHost}:${this.rmqPort}`,
+    );
+  }
 }
