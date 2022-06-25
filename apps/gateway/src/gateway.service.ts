@@ -9,7 +9,7 @@ export class GatewayService {
   constructor(
     private readonly configService: CustomConfigService,
     private readonly utilService: UtilService,
-    @Inject('AUTH') private readonly client: ClientProxy,
+    @Inject('AUTH_SERVICE') private readonly client: ClientProxy,
   ) {
     this.logger = new Logger('GatewayService');
   }
@@ -17,9 +17,6 @@ export class GatewayService {
     return 'Hello World!';
   }
   async getAuth(): Promise<any> {
-    return this.client.send<string, any>(
-      { cmd: 'helloAuth' },
-      { msg: 'hello' },
-    );
+    return this.client.send<string, string>({ cmd: 'helloAuth' }, 'hello');
   }
 }

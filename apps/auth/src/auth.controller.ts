@@ -17,7 +17,7 @@ export class AuthController {
     return await this.authService.registerUser();
   }
 
-  @MessagePattern('helloAuth')
+  @MessagePattern({ cmd: 'helloAuth' })
   async helloAuth(): Promise<string> {
     return await this.authService.getHello();
   }

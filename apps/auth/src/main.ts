@@ -17,9 +17,7 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
     options: {
-      urls: [
-        `${config.rmqProto}://${config.rmqUser}:${config.rmqPass}@${config.rmqHost}:${config.rmqPort}`,
-      ],
+      urls: [config.rmqUrl],
       queue: AppName.AUTH,
       queueOptions: {
         durable: false,
