@@ -2,21 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { GatewayModule } from '../src/gateway.module';
-import { CommonModule } from '@libs/common';
-import { GatewayController } from '../src/gateway.controller';
-import { GatewayService } from '../src/gateway.service';
-import { AUTH_FACTORY } from '@libs/common/factory';
-import { ClientProxy } from '@nestjs/microservices';
 
-describe('GatewayController (e2e)', () => {
+describe('gateway-auth (e2e)', () => {
   let app: INestApplication;
-  let client: ClientProxy;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [CommonModule],
-      controllers: [GatewayController],
-      providers: [GatewayService, AUTH_FACTORY],
+      imports: [GatewayModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
