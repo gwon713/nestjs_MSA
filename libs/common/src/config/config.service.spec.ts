@@ -137,4 +137,9 @@ describe('ConfigService', () => {
     console.log(service.rmqPass);
     expect(service.rmqPass).toBeDefined();
   });
+
+  test(`rmqUrl 가져오기`, () => {
+    console.log(service.rmqUrl);
+    expect(service.rmqUrl).toBeDefined();
+  });
 });
