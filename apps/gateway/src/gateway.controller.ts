@@ -1,5 +1,6 @@
 import { UtilService } from '@libs/common/util/util.service';
 import { Controller, Get } from '@nestjs/common';
+import { Observable } from 'rxjs';
 import { GatewayService } from './gateway.service';
 
 @Controller()
@@ -15,7 +16,7 @@ export class GatewayController {
   }
 
   @Get('/auth')
-  async getAuth(): Promise<string> {
+  async getAuth(): Promise<Observable<string>> {
     return await this.gatewayService.getAuth();
   }
 }

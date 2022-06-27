@@ -2,12 +2,13 @@ import { UserSocialRouteType, UserStatusType } from '@libs/common/constant';
 import { BaseUserEntity } from '@libs/database/entity';
 import { BaseUserRepository } from '@libs/database/repository';
 import { Injectable } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly baseUserRepo: BaseUserRepository) {}
   async getHello(): Promise<string> {
-    return 'Hello World!';
+    throw new RpcException('sd');
   }
   async registerUser(): Promise<BaseUserEntity> {
     return await this.baseUserRepo.save(

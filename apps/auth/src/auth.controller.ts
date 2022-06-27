@@ -1,6 +1,7 @@
+import { AllExceptionsFilter } from '@libs/common/filter';
 import { BaseUserEntity } from '@libs/database/entity';
-import { Controller, Get, Post } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { Controller, Get, Post, UseFilters } from '@nestjs/common';
+import { MessagePattern, RpcException } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
 
 @Controller()
@@ -17,8 +18,13 @@ export class AuthController {
     return await this.authService.registerUser();
   }
 
+  @UseFilters(new AllExceptionsFilter())
   @MessagePattern({ cmd: 'helloAuth' })
   async helloAuth(): Promise<string> {
-    return await this.authService.getHello();
+    try {
+      return await this.authService.getHello();
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 }
