@@ -8,7 +8,8 @@ import { RpcException } from '@nestjs/microservices';
 export class AuthService {
   constructor(private readonly baseUserRepo: BaseUserRepository) {}
   async getHello(): Promise<string> {
-    throw new RpcException('sd');
+    // return 'Hello World!';
+    throw new RpcException('getHello');
   }
   async registerUser(): Promise<BaseUserEntity> {
     return await this.baseUserRepo.save(

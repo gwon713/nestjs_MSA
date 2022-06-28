@@ -6,9 +6,7 @@ import {
   BadGatewayException,
   RequestTimeoutException,
   Logger,
-  InternalServerErrorException,
 } from '@nestjs/common';
-import { RpcException } from '@nestjs/microservices';
 import { Observable, throwError, TimeoutError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -29,10 +27,11 @@ export class TransformInterceptor<T>
       map((data) => ({ data })),
       catchError((err) => {
         logger.error('interceptor');
+        logger.error(err);
         if (err instanceof TimeoutError) {
           return throwError(() => new RequestTimeoutException());
         }
-        throwError(() => new BadGatewayException(err));
+        return throwError(() => new BadGatewayException(err));
       }),
     );
   }

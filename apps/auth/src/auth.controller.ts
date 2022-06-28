@@ -9,7 +9,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get()
-  async getHello(): Promise<string> {
+  async getHello() {
     return await this.authService.getHello();
   }
 
@@ -18,11 +18,11 @@ export class AuthController {
     return await this.authService.registerUser();
   }
 
-  @UseFilters(new AllExceptionsFilter())
+  // @UseFilters(new AllExceptionsFilter())
   @MessagePattern({ cmd: 'helloAuth' })
   async helloAuth(): Promise<string> {
     try {
-      return await this.authService.getHello();
+      return this.authService.getHello();
     } catch (error) {
       throw new RpcException(error);
     }

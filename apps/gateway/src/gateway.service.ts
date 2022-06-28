@@ -2,7 +2,7 @@ import { CustomConfigService } from '@libs/common/config/config.service';
 import { UtilService } from '@libs/common/util/util.service';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { Observable, timeout } from 'rxjs';
+import { Observable, Subscription, timeout } from 'rxjs';
 
 @Injectable()
 export class GatewayService {
@@ -17,9 +17,9 @@ export class GatewayService {
   getHello(): string {
     return 'Hello World!';
   }
-  async getAuth(): Promise<Observable<string>> {
+  getAuth(): Observable<any> {
     return this.client
-      .send<string, string>({ cmd: 'helloAuth' }, 'hello')
+      .send<any, any>({ cmd: 'helloAuth' }, 'hello')
       .pipe(timeout(5000));
   }
 }

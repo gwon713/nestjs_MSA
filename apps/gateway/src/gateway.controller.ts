@@ -16,7 +16,7 @@ export class GatewayController {
   }
 
   @Get('/auth')
-  async getAuth(): Promise<Observable<string>> {
-    return await this.gatewayService.getAuth();
+  getAuth() {
+    return this.gatewayService.getAuth();
   }
 }
