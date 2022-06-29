@@ -30,10 +30,12 @@ describe('ConfigService', () => {
   });
 
   it('config 설정된 리스트', () => {
+    console.log(expect.getState().currentTestName);
     console.log(Object.getOwnPropertyNames(CustomConfigService.prototype));
   });
 
   test(`node env 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.nodeEnv);
     expect(service.nodeEnv).toBeDefined();
     expect(
@@ -47,6 +49,7 @@ describe('ConfigService', () => {
   });
 
   test(`loglevel 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.logLevel);
     expect(service.logLevel).toBeDefined();
     expect(
@@ -55,46 +58,55 @@ describe('ConfigService', () => {
   });
 
   test(`rootDir 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.rootDir);
     expect(service.rootDir).toBeDefined();
   });
 
   test(`dbHost 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.dbHost);
     expect(service.dbHost).toBeDefined();
   });
 
   test(`dbPort 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.dbPort);
     expect(service.dbPort).toBeDefined();
   });
 
   test(`dbUsername 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.dbUsername);
     expect(service.dbUsername).toBeDefined();
   });
 
   test(`dbPassword 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.dbPassword);
     expect(service.dbPassword).toBeDefined();
   });
 
   test(`dbDatabase 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.dbDatabase);
     expect(service.dbDatabase).toBeDefined();
   });
 
   test(`dbSchema 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.dbSchema);
     expect(service.dbSchema).toBeDefined();
   });
 
   test(`dbSync 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.dbSync);
     expect(service.dbSync).toBeDefined();
   });
 
   test(`dbDebug 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.dbDebug);
     if (typeof service.dbDebug == 'string') {
       expect(
@@ -113,32 +125,44 @@ describe('ConfigService', () => {
     expect(service.dbDebug).toBeDefined();
   });
 
+  test(`gqlPlayGround 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
+    console.log(service.gqlPlayGround);
+    expect(service.gqlPlayGround).toBeDefined();
+  });
+
   test(`rmqProto 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.rmqProto);
     expect(service.rmqProto).toBeDefined();
   });
 
   test(`rmqHost 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.rmqHost);
     expect(service.rmqHost).toBeDefined();
   });
 
   test(`rmqPort 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.rmqPort);
     expect(service.rmqPort).toBeDefined();
   });
 
   test(`rmqUser 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.rmqUser);
     expect(service.rmqUser).toBeDefined();
   });
 
   test(`rmqPass 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.rmqPass);
     expect(service.rmqPass).toBeDefined();
   });
 
   test(`rmqUrl 가져오기`, () => {
+    console.log(expect.getState().currentTestName);
     console.log(service.rmqUrl);
     expect(service.rmqUrl).toBeDefined();
   });

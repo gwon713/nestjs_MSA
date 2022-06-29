@@ -12,7 +12,11 @@ async function bootstrap() {
     app.get<CustomConfigService>(CustomConfigService);
 
   const logger: Logger = new Logger('auth');
-  logger.log(`APP auth is running on [${config.nodeEnv}]`);
+  logger.log(
+    `AUTH Microservices is running on [${
+      config.nodeEnv ? config.nodeEnv : 'DEFAULT'
+    }] `,
+  );
 
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,

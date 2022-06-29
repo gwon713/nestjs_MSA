@@ -54,6 +54,10 @@ export class CustomConfigService {
     );
   }
 
+  get gqlPlayGround(): boolean {
+    return this.configService.get<boolean>('GQL_PLAYGROUND', true);
+  }
+
   get rmqProto(): string {
     return this.configService.get<string>('RMQ_PROTO', 'amqp');
   }

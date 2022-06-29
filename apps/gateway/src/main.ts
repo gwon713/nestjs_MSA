@@ -26,7 +26,11 @@ async function bootstrap() {
   }
 
   const logger: Logger = new Logger('auth');
-  logger.log(`APP Gateway is running on [${config.nodeEnv}] 3000`);
+  logger.log(
+    `GATEWAY APP is running on [${
+      config.nodeEnv ? config.nodeEnv : 'DEFAULT'
+    }] port 3000`,
+  );
   await app.listen(3000);
 }
 bootstrap();
