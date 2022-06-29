@@ -40,7 +40,6 @@
     "rxjs": "^7.5.5",
     "swagger-ui-express": "^4.4.0",
     "typeorm": "^0.3.6",
-    "typeorm-naming-strategies": "^4.1.0",
     "webpack": "^5.73.0"
   },
   "devDependencies": {

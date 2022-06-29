@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { CustomConfigService } from '@libs/common/config/config.service';
 import { CommonModule } from '@libs/common/common.module';
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AbstractEntity, BaseUserEntity } from './entity';
+import { getMetadataArgsStorage } from 'typeorm';
+import { DBNamingStrategy } from './db-naming.strategy';
 @Module({
   imports: [
     CommonModule,
@@ -23,7 +24,15 @@ import { AbstractEntity, BaseUserEntity } from './entity';
         subscribers: [],
         synchronize: config.dbSync,
         logging: config.dbDebug,
-        namingStrategy: new SnakeNamingStrategy(),
+        namingStrategy: new DBNamingStrategy(),
+        keepConnectionAlive: true,
+        dropSchema: false,
+        extra: {
+          max: 5,
+          maxUses: 5000,
+          connectionTimeoutMillis: 5000,
+          idleTimeoutMillis: 1000,
+        },
       }),
       inject: [CustomConfigService],
     }),

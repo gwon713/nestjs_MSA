@@ -13,7 +13,7 @@ import {
 export abstract class AbstractEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid', {
     name: 'id',
-    comment: 'pk',
+    comment: 'Primary Key',
   })
   id!: string;
 
