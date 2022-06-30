@@ -19,7 +19,7 @@ import { DBNamingStrategy } from './db-naming.strategy';
         password: config.dbPassword,
         database: config.dbDatabase,
         schema: config.dbSchema,
-        entities: [AbstractEntity, BaseUserEntity],
+        entities: [BaseUserEntity],
         migrations: [],
         subscribers: [],
         synchronize: config.dbSync,

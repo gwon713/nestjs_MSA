@@ -4,8 +4,8 @@ import { TransformInterceptor } from '@libs/common/interceptor';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { GatewayModule } from './gateway.module';
+import { setupSwagger } from './util';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(GatewayModule);
@@ -16,16 +16,10 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
 
   if (config.nodeEnv !== Environment.PRODUCTION) {
-    const config = new DocumentBuilder()
-      .setTitle('Gateway')
-      .setDescription('API')
-      .setVersion('1.0.0')
-      .build();
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('docs', app, document);
+    setupSwagger(app);
   }
 
-  const logger: Logger = new Logger('auth');
+  const logger: Logger = new Logger('Gateway');
   logger.log(
     `GATEWAY APP is running on [${
       config.nodeEnv ? config.nodeEnv : 'DEFAULT'

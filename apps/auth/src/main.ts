@@ -11,7 +11,7 @@ async function bootstrap() {
   const config: CustomConfigService =
     app.get<CustomConfigService>(CustomConfigService);
 
-  const logger: Logger = new Logger('auth');
+  const logger: Logger = new Logger('Auth');
   logger.log(
     `AUTH Microservices is running on [${
       config.nodeEnv ? config.nodeEnv : 'DEFAULT'
