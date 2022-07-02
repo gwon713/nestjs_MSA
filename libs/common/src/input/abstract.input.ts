@@ -3,7 +3,9 @@ import { InputType } from '@nestjs/graphql';
 /**
  * AbstractInput
  *
- * @description 브라우저 지역 정보
+ * @description Abstract Base Input
  */
 @InputType({ isAbstract: true, description: 'base Abstract input' })
-export abstract class AbstractInput {}
+export abstract class AbstractInput {
+  origin?: string;
+}
