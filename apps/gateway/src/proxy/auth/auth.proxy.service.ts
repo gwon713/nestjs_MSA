@@ -1,4 +1,6 @@
 import { CustomConfigService } from '@libs/common/config/config.service';
+import { AuthenticateInput } from '@libs/common/input';
+import { AuthenticateOutput } from '@libs/common/model';
 import { UtilService } from '@libs/common/util/util.service';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -16,5 +18,14 @@ export class AuthProxyService {
   }
   getAuth(): Observable<any> {
     return this.client.send<any, any>({ cmd: 'helloAuth' }, 'hello').pipe();
+  }
+
+  authenticate(input: AuthenticateInput): Observable<AuthenticateOutput> {
+    return this.client
+      .send<AuthenticateOutput, AuthenticateInput>(
+        { cmd: 'authenticate' },
+        input,
+      )
+      .pipe();
   }
 }

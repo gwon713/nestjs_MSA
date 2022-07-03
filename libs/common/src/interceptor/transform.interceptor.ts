@@ -1,14 +1,14 @@
 import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
-  CallHandler,
   BadGatewayException,
-  RequestTimeoutException,
+  CallHandler,
+  ExecutionContext,
+  Injectable,
   Logger,
+  NestInterceptor,
+  RequestTimeoutException,
 } from '@nestjs/common';
 import { Observable, throwError, TimeoutError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 export interface Response<T> {
   data: T;
@@ -24,7 +24,6 @@ export class TransformInterceptor<T>
   ): Observable<Response<T>> {
     const logger: Logger = new Logger('TransformInterceptor');
     return next.handle().pipe(
-      map((data) => ({ data })),
       catchError((err) => {
         logger.error('interceptor');
         logger.error(err);

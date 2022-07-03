@@ -1,1 +1,1 @@
-export * from './jwt-payload';
+export * from './jwt-payload.interface';
