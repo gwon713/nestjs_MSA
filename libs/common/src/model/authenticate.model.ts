@@ -1,12 +1,7 @@
 import { Field, Float, ObjectType } from '@nestjs/graphql';
 
-import { One } from '.';
+import { One } from './output.model';
 
-/**
- * Authentication
- *
- * @TODO fill description
- */
 @ObjectType({ description: '' })
 export class Authentication {
   @Field(() => String, { nullable: false, description: 'JWT' })

@@ -1,5 +1,6 @@
+import { registerEnumType } from '@nestjs/graphql';
+
 /**
- * @TODO GraphQL registerEnumType ADD
  * @enum
  * @see UserSocialRouteType
  */
@@ -9,3 +10,7 @@ export enum UserSocialRouteType {
   GOOGLE = 'GOOGLE',
   GITHUB = 'GITHUB',
 }
+
+registerEnumType(UserSocialRouteType, {
+  name: 'UserSocialRouteType',
+});
