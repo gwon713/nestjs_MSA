@@ -85,4 +85,11 @@ export class CustomConfigService {
       `${this.rmqProto}://${this.rmqUser}:${this.rmqPass}@${this.rmqHost}:${this.rmqPort}`,
     );
   }
+
+  get jwtSecret(): string {
+    return this.configService.get<string>(
+      'JWT_SECRET',
+      'O8jSX9Su4hM8CrDJMbgr1HgAsGMpxYRcnXbVQE6gryw',
+    );
+  }
 }
