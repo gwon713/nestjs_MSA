@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { AuthProxyResolver } from './auth.proxy.resolver';
 
 describe('AuthResolver', () => {

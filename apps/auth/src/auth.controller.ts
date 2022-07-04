@@ -2,6 +2,7 @@ import { AllExceptionsFilter } from '@libs/common/filter';
 import { BaseUserEntity } from '@libs/database/entity';
 import { Controller, Get, Post, UseFilters } from '@nestjs/common';
 import { MessagePattern, RpcException } from '@nestjs/microservices';
+
 import { AuthService } from './auth.service';
 
 @Controller()

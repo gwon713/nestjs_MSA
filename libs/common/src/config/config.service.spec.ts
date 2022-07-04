@@ -1,8 +1,9 @@
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CustomConfigService } from './config.service';
 import { join } from 'path';
+
 import { Environment } from '../constant';
+import { CustomConfigService } from './config.service';
 
 describe('ConfigService', () => {
   let service: CustomConfigService;

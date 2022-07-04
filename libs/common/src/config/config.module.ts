@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { CustomConfigService } from './config.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Environment } from '../constant';
+import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
+
+import { Environment } from '../constant';
+import { CustomConfigService } from './config.service';
 
 @Module({
   imports: [

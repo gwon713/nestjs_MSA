@@ -1,9 +1,11 @@
 import { CommonModule } from '@libs/common';
 import { CustomConfigService } from '@libs/common/config/config.service';
-import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+
 import { ProxyModule } from './proxy/proxy.module';
+import { StrategyModule } from './strategy/strategy.module';
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import { ProxyModule } from './proxy/proxy.module';
       }),
       inject: [CustomConfigService],
     }),
+    StrategyModule,
   ],
   providers: [],
 })

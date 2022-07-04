@@ -1,5 +1,6 @@
 import { UserSocialRouteType, UserStatusType } from '@libs/common/constant';
 import { Column, Entity } from 'typeorm';
+
 import { AbstractEntity } from '.';
 
 /**

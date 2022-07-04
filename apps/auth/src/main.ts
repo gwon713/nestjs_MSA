@@ -1,9 +1,10 @@
-import { NestFactory } from '@nestjs/core';
-import { AuthModule } from './auth.module';
 import { CustomConfigService } from '@libs/common/config/config.service';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
-import { Logger } from '@nestjs/common';
 import { AppName } from '@libs/common/constant/app-name';
+import { Logger } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+
+import { AuthModule } from './auth.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AuthModule);

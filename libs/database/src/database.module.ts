@@ -1,10 +1,10 @@
+import { CommonModule } from '@libs/common/common.module';
+import { CustomConfigService } from '@libs/common/config/config.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { CustomConfigService } from '@libs/common/config/config.service';
-import { CommonModule } from '@libs/common/common.module';
-import { AbstractEntity, BaseUserEntity } from './entity';
-import { getMetadataArgsStorage } from 'typeorm';
+
 import { DBNamingStrategy } from './db-naming.strategy';
+import { BaseUserEntity } from './entity';
 @Module({
   imports: [
     CommonModule,
