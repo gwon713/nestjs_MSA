@@ -10,7 +10,6 @@ import { PassportModule } from '@nestjs/passport';
       imports: [CustomConfigService],
       useFactory: async (config: CustomConfigService) => ({
         secret: config.jwtSecret,
-        signOptions: { expiresIn: '60s' },
       }),
       inject: [CustomConfigService],
     }),
