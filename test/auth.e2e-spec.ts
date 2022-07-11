@@ -1,18 +1,15 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { CommonModule } from '@libs/common';
+import { CustomConfigService } from '@libs/common/config/config.service';
+import { AppName } from '@libs/common/constant/app-name';
+import { AUTH_FACTORY } from '@libs/common/factory';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
 import {
   ClientProxy,
   MicroserviceOptions,
   Transport,
 } from '@nestjs/microservices';
+import { Test, TestingModule } from '@nestjs/testing';
 import { Observable } from 'rxjs';
-import { CommonModule } from '@libs/common';
-import { GatewayController } from '../apps/gateway/src/gateway.controller';
-import { GatewayService } from '../apps/gateway/src/gateway.service';
-import { AUTH_FACTORY } from '@libs/common/factory';
-import { CustomConfigService } from '@libs/common/config/config.service';
-import { AppName } from '@libs/common/constant/app-name';
 
 describe('gateway-auth (e2e)', () => {
   let app: INestApplication;
@@ -21,8 +18,7 @@ describe('gateway-auth (e2e)', () => {
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [CommonModule],
-      controllers: [GatewayController],
-      providers: [GatewayService, AUTH_FACTORY],
+      providers: [AUTH_FACTORY],
     }).compile();
 
     const config = moduleFixture.get<CustomConfigService>(CustomConfigService);

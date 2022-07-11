@@ -66,12 +66,16 @@ export class AuthService {
     route: UserSocialRouteType,
     scopes: UserServiceType[],
   ): Promise<string> {
+    const now = Date.now();
+    const exp = new Date(
+      new Date(now).setHours(new Date(now).getDate() + 1),
+    ).getTime(); // now + 86400000
     const payload = {
-      iss: 'localhost',
-      sub: 'access',
+      iss: '',
+      sub: 'access-token',
       aud: aud,
-      iat: Date.now(),
-      exp: Date.now() + 100,
+      iat: now,
+      exp: exp,
       route: route,
       scopes: scopes,
     } as JwtPayload;
