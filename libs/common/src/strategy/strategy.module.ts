@@ -1,6 +1,6 @@
 import { CustomConfigService } from '@libs/common/config/config.service';
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({
@@ -14,6 +14,7 @@ import { PassportModule } from '@nestjs/passport';
       inject: [CustomConfigService],
     }),
   ],
-  providers: [],
+  providers: [JwtService],
+  exports: [JwtService],
 })
 export class StrategyModule {}
