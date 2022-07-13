@@ -2,7 +2,6 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin', 'simple-import-sort'],
@@ -17,8 +16,9 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
-    'simple-import-sort/exports': 'warn',
-    'simple-import-sort/imports': 'warn',
+    'simple-import-sort/exports': 'error',
+    'simple-import-sort/imports': 'error',
+    "@typescript-eslint/ban-types": "off",
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',

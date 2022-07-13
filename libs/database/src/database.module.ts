@@ -2,9 +2,9 @@ import { CommonModule } from '@libs/common/common.module';
 import { CustomConfigService } from '@libs/common/config/config.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { getMetadataArgsStorage } from 'typeorm';
 
 import { DBNamingStrategy } from './db-naming.strategy';
-import { BaseUserEntity } from './entity';
 @Module({
   imports: [
     CommonModule,
@@ -19,7 +19,7 @@ import { BaseUserEntity } from './entity';
         password: config.dbPassword,
         database: config.dbDatabase,
         schema: config.dbSchema,
-        entities: [BaseUserEntity],
+        entities: getMetadataArgsStorage().tables.map((tbl) => tbl.target),
         migrations: [],
         subscribers: [],
         synchronize: config.dbSync,
