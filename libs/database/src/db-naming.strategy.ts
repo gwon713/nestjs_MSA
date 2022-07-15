@@ -8,8 +8,12 @@ export class DBNamingStrategy
     let table: string =
       tableOrName instanceof Table ? tableOrName.name : tableOrName;
     table = table.split('.').pop();
+    table = table
+      .split('_')
+      .map((x) => x.charAt(0))
+      .join('');
     const columnSnakeCase: string = columnNames.join('_');
-    return `${table}_${columnSnakeCase}_pkey`;
+    return `${table}_${columnSnakeCase}_pk`;
   }
 
   uniqueConstraintName(
@@ -19,6 +23,10 @@ export class DBNamingStrategy
     let table: string =
       tableOrName instanceof Table ? tableOrName.name : tableOrName;
     table = table.split('.').pop();
+    table = table
+      .split('_')
+      .map((x) => x.charAt(0))
+      .join('');
     const columnSnakeCase: string = columnNames.join('_');
     return `${table}_${columnSnakeCase}_uq`;
   }
@@ -26,12 +34,15 @@ export class DBNamingStrategy
   indexName(
     tableOrName: Table | string,
     columns: string[],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    where?: string,
+    // where?: string,
   ): string {
     let table: string =
       tableOrName instanceof Table ? tableOrName.name : tableOrName;
     table = table.split('.').pop();
+    table = table
+      .split('_')
+      .map((x) => x.charAt(0))
+      .join('');
     const columnSnakeCase: string = columns.join('_');
     return `${table}_${columnSnakeCase}_idx`;
   }
@@ -39,12 +50,15 @@ export class DBNamingStrategy
   relationConstraintName(
     tableOrName: Table | string,
     columnNames: string[],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    where?: string,
+    // where?: string,
   ): string {
     let table: string =
       tableOrName instanceof Table ? tableOrName.name : tableOrName;
     table = table.split('.').pop();
+    table = table
+      .split('_')
+      .map((x) => x.charAt(0))
+      .join('');
     const columnSnakeCase: string = columnNames.join('_');
     return `${table}_${columnSnakeCase}_rel`;
   }
@@ -52,15 +66,17 @@ export class DBNamingStrategy
   foreignKeyName(
     tableOrName: Table | string,
     columnNames: string[],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    referencedTablePath?: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    referencedColumnNames?: string[],
+    // referencedTablePath?: string,
+    // referencedColumnNames?: string[],
   ): string {
     let table: string =
       tableOrName instanceof Table ? tableOrName.name : tableOrName;
     table = table.split('.').pop();
+    table = table
+      .split('_')
+      .map((x) => x.charAt(0))
+      .join('');
     const columnSnakeCase: string = columnNames.join('_');
-    return `${table}_${columnSnakeCase}_fkey`;
+    return `${table}_${columnSnakeCase}_fk`;
   }
 }
