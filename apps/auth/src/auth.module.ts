@@ -1,5 +1,5 @@
 import { CommonModule } from '@libs/common';
-import { StrategyModule } from '@libs/common/strategy/strategy.module';
+import { StrategyModule } from '@libs/common/strategy';
 import { DatabaseModule } from '@libs/database';
 import { BaseUserRepository } from '@libs/database/repository';
 import { Module } from '@nestjs/common';

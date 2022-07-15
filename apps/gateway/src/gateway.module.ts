@@ -1,6 +1,6 @@
 import { CommonModule } from '@libs/common';
 import { CustomConfigService } from '@libs/common/config/config.service';
-import { StrategyModule } from '@libs/common/strategy/strategy.module';
+import { StrategyModule } from '@libs/common/strategy';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';

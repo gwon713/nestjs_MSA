@@ -7,7 +7,6 @@ import { PassportModule } from '@nestjs/passport';
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
-      imports: [CustomConfigService],
       useFactory: async (config: CustomConfigService) => ({
         secret: config.jwtSecret,
       }),
