@@ -11,6 +11,7 @@ import { BaseUserRepository } from '@libs/database/repository';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { RpcException } from '@nestjs/microservices';
+import * as dayjs from 'dayjs';
 
 @Injectable()
 export class AuthService {
@@ -38,13 +39,25 @@ export class AuthService {
       UserServiceType.SERVICE2,
     ];
 
+    const now = Date.now();
+
     return {
       data: {
         accessToken: await this.createAccessToken(
           user.email,
           user.social,
           serviceCheck,
+          now,
         ),
+        refreshToken: await this.createRefreshToken(
+          user.email,
+          user.social,
+          serviceCheck,
+          now,
+        ),
+        expiration: new Date(
+          new Date(Date.now()).setHours(new Date(Date.now()).getMonth() + 1),
+        ).getTime(),
       } as Authentication,
     } as AuthenticateOutput;
   }
@@ -65,14 +78,35 @@ export class AuthService {
     aud: string,
     route: UserSocialRouteType,
     scopes: UserServiceType[],
+    now: number,
   ): Promise<string> {
-    const now = Date.now();
     const exp = new Date(
       new Date(now).setHours(new Date(now).getDate() + 1),
     ).getTime(); // now + 86400000
     const payload = {
       iss: '',
       sub: 'access-token',
+      aud: aud,
+      iat: now,
+      exp: exp,
+      route: route,
+      scopes: scopes,
+    } as JwtPayload;
+    return await this.jwtService.signAsync(payload);
+  }
+
+  async createRefreshToken(
+    aud: string,
+    route: UserSocialRouteType,
+    scopes: UserServiceType[],
+    now: number,
+  ): Promise<string> {
+    const exp = new Date(
+      new Date(now).setMonth(new Date(now).getMonth() + 1),
+    ).getTime(); // now + 86400000
+    const payload = {
+      iss: '',
+      sub: 'refresh-token',
       aud: aud,
       iat: now,
       exp: exp,

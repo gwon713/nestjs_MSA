@@ -1,5 +1,6 @@
 import { Injectable, LogLevel } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { ManipulateType } from 'dayjs';
 import { LoggerOptions } from 'typeorm';
 
 import { Environment } from '../constant';
@@ -90,6 +91,28 @@ export class CustomConfigService {
     return this.configService.get<string>(
       'JWT_SECRET',
       'O8jSX9Su4hM8CrDJMbgr1HgAsGMpxYRcnXbVQE6gryw',
+    );
+  }
+
+  get accessTokenExprieTimeValue(): number {
+    return this.configService.get<number>('ACCESS_TOKEN_EXPIRE_TIME_VALUE', 30);
+  }
+
+  get accessTokenExpireTimeUnit(): ManipulateType {
+    return this.configService.get<ManipulateType>(
+      'ACCESS_TOKEN_EXPIRE_TIME_UNIT',
+      <ManipulateType>'minute',
+    );
+  }
+
+  get refreshTokenExprieTimeValue(): number {
+    return this.configService.get<number>('REFRESH_TOKEN_EXPIRE_TIME_VALUE', 1);
+  }
+
+  get refreshTokenExpireTimeUnit(): ManipulateType {
+    return this.configService.get<ManipulateType>(
+      'REFRESH_TOKEN_EXPIRE_TIME_UNIT',
+      <ManipulateType>'month',
     );
   }
 }
