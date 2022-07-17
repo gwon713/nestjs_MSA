@@ -1,3 +1,4 @@
+import { CustomConfigService } from '@libs/common/config/config.service';
 import {
   UserServiceType,
   UserSocialRouteType,
@@ -16,6 +17,7 @@ import * as dayjs from 'dayjs';
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly configService: CustomConfigService,
     private jwtService: JwtService,
     private readonly baseUserRepo: BaseUserRepository,
   ) {}
@@ -39,7 +41,11 @@ export class AuthService {
       UserServiceType.SERVICE2,
     ];
 
-    const now = Date.now();
+    const now = dayjs();
+    const exp = now.add(
+      this.configService.accessTokenExprieTimeValue,
+      this.configService.accessTokenExpireTimeUnit,
+    );
 
     return {
       data: {
@@ -48,6 +54,7 @@ export class AuthService {
           user.social,
           serviceCheck,
           now,
+          exp,
         ),
         refreshToken: await this.createRefreshToken(
           user.email,
@@ -55,9 +62,8 @@ export class AuthService {
           serviceCheck,
           now,
         ),
-        expiration: new Date(
-          new Date(Date.now()).setHours(new Date(Date.now()).getMonth() + 1),
-        ).getTime(),
+        tokenType: 'Bearer',
+        expiration: exp.unix(),
       } as Authentication,
     } as AuthenticateOutput;
   }
@@ -78,17 +84,15 @@ export class AuthService {
     aud: string,
     route: UserSocialRouteType,
     scopes: UserServiceType[],
-    now: number,
+    now: dayjs.Dayjs,
+    exp: dayjs.Dayjs,
   ): Promise<string> {
-    const exp = new Date(
-      new Date(now).setHours(new Date(now).getDate() + 1),
-    ).getTime(); // now + 86400000
     const payload = {
       iss: '',
       sub: 'access-token',
       aud: aud,
-      iat: now,
-      exp: exp,
+      iat: now.unix(),
+      exp: exp.unix(),
       route: route,
       scopes: scopes,
     } as JwtPayload;
@@ -99,17 +103,18 @@ export class AuthService {
     aud: string,
     route: UserSocialRouteType,
     scopes: UserServiceType[],
-    now: number,
+    now: dayjs.Dayjs,
   ): Promise<string> {
-    const exp = new Date(
-      new Date(now).setMonth(new Date(now).getMonth() + 1),
-    ).getTime(); // now + 86400000
+    const exp = now.add(
+      this.configService.refreshTokenExprieTimeValue,
+      this.configService.refreshTokenExpireTimeUnit,
+    );
     const payload = {
       iss: '',
       sub: 'refresh-token',
       aud: aud,
-      iat: now,
-      exp: exp,
+      iat: now.unix(),
+      exp: exp.unix(),
       route: route,
       scopes: scopes,
     } as JwtPayload;

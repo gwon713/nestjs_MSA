@@ -20,8 +20,8 @@ export class Authentication {
   @Field(() => String, { nullable: false, description: 'JWT' })
   refreshToken!: string;
 
-  @Field(() => String, { nullable: true, description: '' })
-  redirectUrl?: string | null;
+  // @Field(() => String, { nullable: true, description: '' })
+  // redirectUrl?: string | null;
 }
 
 @ObjectType({ description: '' })
