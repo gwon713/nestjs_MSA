@@ -4,7 +4,7 @@ import {
   UserSocialRouteType,
   UserStatusType,
 } from '@libs/common/constant';
-import { AuthenticateInput } from '@libs/common/input';
+import { AuthenticateInput, RegisterUserInput } from '@libs/common/input';
 import { JwtPayload } from '@libs/common/interface';
 import { AuthenticateOutput, Authentication } from '@libs/common/model';
 import { BaseUserEntity } from '@libs/database/entity';
@@ -27,12 +27,15 @@ export class AuthService {
   }
 
   async authenticate(input: AuthenticateInput): Promise<AuthenticateOutput> {
-    const user = await this.baseUserRepo.findOne({
+    const user: BaseUserEntity = await this.baseUserRepo.findOne({
       where: {
         email: input.email,
       },
     });
 
+    if (!user) {
+      throw new Error();
+    }
     /**
      * @TODO add service check
      */
@@ -68,7 +71,17 @@ export class AuthService {
     } as AuthenticateOutput;
   }
 
-  async registerUser(): Promise<BaseUserEntity> {
+  async registerUser(input: RegisterUserInput): Promise<BaseUserEntity> {
+    const user: BaseUserEntity = await this.baseUserRepo.findOne({
+      where: {
+        email: input.email,
+      },
+    });
+
+    if (user) {
+      throw new Error();
+    }
+
     return await this.baseUserRepo.save(
       this.baseUserRepo.create({
         email: 'gwon713@gamil.com',

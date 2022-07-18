@@ -1,5 +1,5 @@
-import { AllExceptionsFilter } from '@libs/common/filter';
-import { BaseUserEntity } from '@libs/database/entity';
+import { AuthenticateInput } from '@libs/common/input';
+import { AuthenticateOutput } from '@libs/common/model';
 import { Controller } from '@nestjs/common';
 import { MessagePattern, RpcException } from '@nestjs/microservices';
 
@@ -14,6 +14,15 @@ export class AuthController {
   async helloAuth(): Promise<string> {
     try {
       return this.authService.getHello();
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  }
+
+  @MessagePattern({ cmd: 'authenticate' })
+  async authenticate(input: AuthenticateInput): Promise<AuthenticateOutput> {
+    try {
+      return this.authService.authenticate(input);
     } catch (error) {
       throw new RpcException(error);
     }

@@ -3,8 +3,8 @@ import { Field, InputType } from '@nestjs/graphql';
 import { UserSocialRouteType } from '../constant';
 import { AbstractInput } from './abstract.input';
 
-@InputType({ description: 'AuthenticateInput' })
-export class AuthenticateInput extends AbstractInput {
+@InputType({ description: 'RegisterUserInput' })
+export class RegisterUserInput extends AbstractInput {
   @Field(() => String, {
     nullable: false,
     description: '이메일',
