@@ -1,12 +1,13 @@
 import { CustomConfigService } from '@libs/common/config/config.service';
 import {
+  statusCode,
   UserServiceType,
   UserSocialRouteType,
   UserStatusType,
 } from '@libs/common/constant';
 import { AuthenticateInput, RegisterUserInput } from '@libs/common/input';
 import { JwtPayload } from '@libs/common/interface';
-import { AuthenticateOutput, Authentication } from '@libs/common/model';
+import { AuthenticateOutput, Authentication, Output } from '@libs/common/model';
 import { BaseUserEntity } from '@libs/database/entity';
 import { BaseUserRepository } from '@libs/database/repository';
 import { Injectable } from '@nestjs/common';
@@ -71,7 +72,7 @@ export class AuthService {
     } as AuthenticateOutput;
   }
 
-  async registerUser(input: RegisterUserInput): Promise<BaseUserEntity> {
+  async registerUser(input: RegisterUserInput): Promise<Output> {
     const user: BaseUserEntity = await this.baseUserRepo.findOne({
       where: {
         email: input.email,
@@ -82,15 +83,23 @@ export class AuthService {
       throw new Error();
     }
 
-    return await this.baseUserRepo.save(
+    /**
+     * encrypt password
+     */
+    await this.baseUserRepo.save(
       this.baseUserRepo.create({
-        email: 'gwon713@gamil.com',
-        nickName: 'gwon713',
-        password: '1234',
-        social: UserSocialRouteType.LOCAL,
+        email: input.email,
+        nickName: input.nickName,
+        password: input.password,
+        social: input.social,
         state: UserStatusType.REGISTERED,
       }),
     );
+
+    return {
+      statusCode: statusCode.SUCCESS,
+      message: 'registerUser Complete',
+    };
   }
 
   async createAccessToken(
