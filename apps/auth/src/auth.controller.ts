@@ -1,5 +1,5 @@
-import { AuthenticateInput } from '@libs/common/input';
-import { AuthenticateOutput } from '@libs/common/model';
+import { AuthenticateInput, RegisterUserInput } from '@libs/common/input';
+import { AuthenticateOutput, Output } from '@libs/common/model';
 import { Controller } from '@nestjs/common';
 import { MessagePattern, RpcException } from '@nestjs/microservices';
 
@@ -23,6 +23,15 @@ export class AuthController {
   async authenticate(input: AuthenticateInput): Promise<AuthenticateOutput> {
     try {
       return this.authService.authenticate(input);
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  }
+
+  @MessagePattern({ cmd: 'registerUser' })
+  async registerUser(input: RegisterUserInput): Promise<Output> {
+    try {
+      return this.authService.registerUser(input);
     } catch (error) {
       throw new RpcException(error);
     }

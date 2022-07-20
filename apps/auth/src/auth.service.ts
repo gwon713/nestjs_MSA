@@ -35,7 +35,11 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new Error();
+      throw new Error('USER NOT FOUND');
+    }
+
+    if (user.password != input.password) {
+      throw new Error('PASSWORD INCORRECT');
     }
     /**
      * @TODO add service check

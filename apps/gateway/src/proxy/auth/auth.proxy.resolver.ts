@@ -1,5 +1,5 @@
-import { AuthenticateInput, AuthTestInput } from '@libs/common/input';
-import { AuthenticateOutput } from '@libs/common/model';
+import { AuthenticateInput, RegisterUserInput } from '@libs/common/input';
+import { AuthenticateOutput, Output } from '@libs/common/model';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Observable } from 'rxjs';
 
@@ -25,15 +25,15 @@ export class AuthProxyResolver {
     return this.authProxyService.authenticate(input);
   }
 
-  @Mutation(() => String)
+  @Mutation(() => Output)
   registerUser(
     @Args({
       name: 'input',
       description: '',
-      type: () => AuthTestInput,
+      type: () => RegisterUserInput,
     })
-    input: AuthTestInput,
-  ): string {
-    return 'okay';
+    input: RegisterUserInput,
+  ): Observable<Output> {
+    return this.authProxyService.registerUser(input);
   }
 }

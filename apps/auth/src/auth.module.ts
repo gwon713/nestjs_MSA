@@ -1,6 +1,6 @@
 import { CommonModule } from '@libs/common';
 import { StrategyModule } from '@libs/common/strategy';
-import { DatabaseModule } from '@libs/database';
+import { CustomTypeOrmModule, DatabaseModule } from '@libs/database';
 import { BaseUserRepository } from '@libs/database/repository';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -13,7 +13,7 @@ import { AuthService } from './auth.service';
     CommonModule,
     DatabaseModule,
     StrategyModule,
-    TypeOrmModule.forFeature([BaseUserRepository]),
+    CustomTypeOrmModule.forFeature([BaseUserRepository]),
   ],
   controllers: [AuthController],
   providers: [AuthService],
