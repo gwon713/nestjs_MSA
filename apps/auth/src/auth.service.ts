@@ -1,6 +1,6 @@
 import { CustomConfigService } from '@libs/common/config/config.service';
 import {
-  statusCode,
+  CustomStatusCode,
   UserServiceType,
   UserSocialRouteType,
   UserStatusType,
@@ -55,6 +55,14 @@ export class AuthService {
       this.configService.accessTokenExpireTimeUnit,
     );
 
+    await this.baseUserRepo.update(
+      { id: user.id },
+      {
+        lastLoginAt: now.toDate(),
+        lastLogoutAt: exp.toDate(),
+      },
+    );
+
     return {
       data: {
         accessToken: await this.createAccessToken(
@@ -101,7 +109,7 @@ export class AuthService {
     );
 
     return {
-      statusCode: statusCode.SUCCESS,
+      statusCode: CustomStatusCode.SUCCESS,
       message: 'registerUser Complete',
     };
   }

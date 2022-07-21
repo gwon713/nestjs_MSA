@@ -2,17 +2,17 @@ import { Type } from '@nestjs/common';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { statusCode } from '../constant';
+import { CustomStatusCode } from '../constant';
 
 @ObjectType({ description: 'Default Output' })
 export class Output {
   @ApiProperty()
-  @Field(() => statusCode, {
+  @Field(() => CustomStatusCode, {
     nullable: false,
-    defaultValue: statusCode.SUCCESS,
-    description: 'statusCode',
+    defaultValue: CustomStatusCode.SUCCESS,
+    description: 'CustomStatusCode',
   })
-  statusCode!: statusCode;
+  statusCode!: CustomStatusCode;
 
   @ApiProperty()
   @Field(() => String, {

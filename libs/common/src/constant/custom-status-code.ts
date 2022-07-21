@@ -1,10 +1,10 @@
 import { registerEnumType } from '@nestjs/graphql';
 
-export enum statusCode {
+export enum CustomStatusCode {
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR',
 }
 
-registerEnumType(statusCode, {
-  name: 'statusCode',
+registerEnumType(CustomStatusCode, {
+  name: 'CustomStatusCode',
 });

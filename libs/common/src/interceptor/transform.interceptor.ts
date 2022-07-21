@@ -1,5 +1,4 @@
 import {
-  BadGatewayException,
   CallHandler,
   ExecutionContext,
   Injectable,
@@ -7,8 +6,11 @@ import {
   NestInterceptor,
   RequestTimeoutException,
 } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 import { Observable, throwError, TimeoutError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+import { CustomException } from '../exception';
 
 export interface Response<T> {
   data: T;
@@ -27,10 +29,14 @@ export class TransformInterceptor<T>
       catchError((err) => {
         logger.error('interceptor');
         logger.error(err);
+        logger.error(err instanceof RpcException);
         if (err instanceof TimeoutError) {
-          return throwError(() => new RequestTimeoutException());
+          return throwError(() => new RequestTimeoutException(err));
         }
-        return throwError(() => new BadGatewayException(err));
+        if (err instanceof RpcException) {
+          return throwError(() => new RpcException(err));
+        }
+        return throwError(() => new CustomException(err));
       }),
     );
   }
