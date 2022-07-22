@@ -17,9 +17,9 @@ export class Output {
   @ApiProperty()
   @Field(() => String, {
     nullable: true,
-    description: 'message',
+    description: 'errorMessage',
   })
-  message?: string | null;
+  errorMessage?: string | null;
 }
 
 /**

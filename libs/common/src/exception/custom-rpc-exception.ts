@@ -1,21 +1,23 @@
-import { HttpException, Logger } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 
 import { CustomStatusCode } from '../constant';
 import { Output } from '../model';
 
 /**
- * CustomException
+ * CustomRpcException
  */
-export class CustomException extends HttpException {
+export class CustomRpcException extends RpcException {
+  private readonly logger: Logger;
   errorMessage?: string | null;
 
   constructor(
     public customCode: CustomStatusCode,
-    public statusCode: number = 7829,
     errorMessage?: string | null,
   ) {
-    super(customCode, statusCode);
+    super(customCode);
     this.errorMessage = errorMessage;
+    this.logger = new Logger('CustomRpcException');
   }
 
   /**
@@ -23,7 +25,7 @@ export class CustomException extends HttpException {
    */
   static processException(error: any): Output {
     Logger.debug(error.stack);
-    if (error instanceof CustomException) {
+    if (error instanceof CustomRpcException) {
       return {
         statusCode: <CustomStatusCode>error.message,
         errorMessage: error.errorMessage,
