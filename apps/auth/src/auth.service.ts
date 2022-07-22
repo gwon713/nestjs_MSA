@@ -5,6 +5,7 @@ import {
   UserSocialRouteType,
   UserStatusType,
 } from '@libs/common/constant';
+import { CustomRpcException } from '@libs/common/exception';
 import { AuthenticateInput, RegisterUserInput } from '@libs/common/input';
 import { JwtPayload } from '@libs/common/interface';
 import { AuthenticateOutput, Authentication, Output } from '@libs/common/model';
@@ -35,11 +36,17 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new Error('USER NOT FOUND');
+      throw new CustomRpcException(
+        CustomStatusCode.USER_NOT_FOUND,
+        `{ email: ${input.email} }`,
+      );
     }
 
     if (user.password != input.password) {
-      throw new Error('PASSWORD INCORRECT');
+      throw new CustomRpcException(
+        CustomStatusCode.PASSWORD_INCORRECT,
+        `{ email: ${user.email} }`,
+      );
     }
     /**
      * @TODO add service check
@@ -110,7 +117,6 @@ export class AuthService {
 
     return {
       statusCode: CustomStatusCode.SUCCESS,
-      message: 'registerUser Complete',
     };
   }
 
