@@ -14,8 +14,6 @@ async function bootstrap() {
   const config: CustomConfigService =
     app.get<CustomConfigService>(CustomConfigService);
 
-  app.useGlobalInterceptors(new TransformInterceptor());
-
   if (config.nodeEnv !== Environment.PRODUCTION) {
     setupSwagger(app);
   }

@@ -1,8 +1,10 @@
 import { CommonModule } from '@libs/common';
 import { CustomConfigService } from '@libs/common/config/config.service';
+import { CustomExceptionsFilter } from '@libs/common/filter';
 import { StrategyModule } from '@libs/common/strategy';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { APP_FILTER } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 
 import { ProxyModule } from './proxy/proxy.module';
@@ -26,6 +28,11 @@ import { ProxyModule } from './proxy/proxy.module';
     }),
     StrategyModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: CustomExceptionsFilter,
+    },
+  ],
 })
 export class GatewayModule {}

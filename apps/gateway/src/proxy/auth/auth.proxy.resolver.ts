@@ -22,7 +22,7 @@ export class AuthProxyResolver {
     })
     input: AuthenticateInput,
   ): Observable<AuthenticateOutput> {
-    return this.authProxyService.authenticate(input);
+    return this.authProxyService.authenticate(input).pipe();
   }
 
   @Mutation(() => Output)

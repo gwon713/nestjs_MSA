@@ -10,7 +10,7 @@ import { RpcException } from '@nestjs/microservices';
 import { Observable, throwError, TimeoutError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { CustomException } from '../exception';
+import { CustomRpcException } from '../exception';
 
 export interface Response<T> {
   data: T;
@@ -29,14 +29,9 @@ export class TransformInterceptor<T>
       catchError((err) => {
         logger.error('interceptor');
         logger.error(err);
-        logger.error(err instanceof RpcException);
         if (err instanceof TimeoutError) {
           return throwError(() => new RequestTimeoutException(err));
         }
-        if (err instanceof RpcException) {
-          return throwError(() => new RpcException(err));
-        }
-        return throwError(() => new CustomException(err));
       }),
     );
   }
