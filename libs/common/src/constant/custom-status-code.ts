@@ -9,4 +9,11 @@ export enum CustomStatusCode {
 
 registerEnumType(CustomStatusCode, {
   name: 'CustomStatusCode',
+  description: '응답코드',
+  valuesMap: {
+    SUCCESS: { description: 'SUCCESS' },
+    ERROR: { description: 'ERROR' },
+    USER_NOT_FOUND: { description: 'USER_NOT_FOUND' },
+    PASSWORD_INCORRECT: { description: 'PASSWORD_INCORRECT' },
+  },
 });

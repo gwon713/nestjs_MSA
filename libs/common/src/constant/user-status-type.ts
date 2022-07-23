@@ -12,4 +12,9 @@ export enum UserStatusType {
 
 registerEnumType(UserStatusType, {
   name: 'UserStatusType',
+  description: '유저 상태',
+  valuesMap: {
+    REGISTERED: { description: '가입상태' },
+    DELETE: { description: '탈퇴상태' },
+  },
 });

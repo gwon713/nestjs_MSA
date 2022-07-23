@@ -11,4 +11,9 @@ export enum UserServiceType {
 
 registerEnumType(UserServiceType, {
   name: 'UserServiceType',
+  description: '서비스 종류',
+  valuesMap: {
+    SERVICE1: { description: '서비스1' },
+    SERVICE2: { description: '서비스2' },
+  },
 });
