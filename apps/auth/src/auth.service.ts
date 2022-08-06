@@ -6,14 +6,13 @@ import {
   UserStatusType,
 } from '@libs/common/constant';
 import { CustomRpcException } from '@libs/common/exception';
-import { AuthenticateInput, RegisterUserInput } from '@libs/common/input';
+import { AuthenticateInput, RegisterBaseUserInput } from '@libs/common/input';
 import { JwtPayload } from '@libs/common/interface';
 import { AuthenticateOutput, Authentication, Output } from '@libs/common/model';
 import { BaseUserEntity } from '@libs/database/entity';
 import { BaseUserRepository } from '@libs/database/repository';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { RpcException } from '@nestjs/microservices';
 import * as dayjs from 'dayjs';
 
 @Injectable()
@@ -23,9 +22,8 @@ export class AuthService {
     private jwtService: JwtService,
     private readonly baseUserRepo: BaseUserRepository,
   ) {}
-  async getHello(): Promise<string> {
-    // return 'Hello World!';v
-    throw new RpcException('getHello');
+  async healthCheck(): Promise<string> {
+    return 'healthy';
   }
 
   async authenticate(input: AuthenticateInput): Promise<AuthenticateOutput> {
@@ -91,7 +89,7 @@ export class AuthService {
     } as AuthenticateOutput;
   }
 
-  async registerUser(input: RegisterUserInput): Promise<Output> {
+  async registerBaseUser(input: RegisterBaseUserInput): Promise<Output> {
     const user: BaseUserEntity = await this.baseUserRepo.findOne({
       where: {
         email: input.email,

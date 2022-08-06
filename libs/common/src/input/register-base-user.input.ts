@@ -6,8 +6,8 @@ import { AbstractInput } from './abstract.input';
 /**
  * @TODO add validation
  */
-@InputType({ description: 'RegisterUserInput' })
-export class RegisterUserInput extends AbstractInput {
+@InputType({ description: 'RegisterBaseUserInput' })
+export class RegisterBaseUserInput extends AbstractInput {
   @Field(() => String, {
     nullable: false,
     description: '이메일',

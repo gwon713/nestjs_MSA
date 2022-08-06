@@ -1,8 +1,8 @@
 import { CustomRpcException } from '@libs/common/exception';
-import { AuthenticateInput, RegisterUserInput } from '@libs/common/input';
+import { AuthenticateInput, RegisterBaseUserInput } from '@libs/common/input';
 import { AuthenticateOutput, Output } from '@libs/common/model';
 import { Controller, HttpException } from '@nestjs/common';
-import { MessagePattern, RpcException } from '@nestjs/microservices';
+import { MessagePattern } from '@nestjs/microservices';
 
 import { AuthService } from './auth.service';
 
@@ -11,10 +11,10 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   // @UseFilters(new AllExceptionsFilter())
-  @MessagePattern({ cmd: 'helloAuth' })
+  @MessagePattern({ cmd: 'healthCheck' })
   async helloAuth(): Promise<string> {
     try {
-      return await this.authService.getHello();
+      return await this.authService.healthCheck();
     } catch (error) {
       if (error instanceof CustomRpcException) {
         throw CustomRpcException.processException(error);
@@ -35,10 +35,10 @@ export class AuthController {
     }
   }
 
-  @MessagePattern({ cmd: 'registerUser' })
-  async registerUser(input: RegisterUserInput): Promise<Output> {
+  @MessagePattern({ cmd: 'registerBaseUser' })
+  async registerBaseUser(input: RegisterBaseUserInput): Promise<Output> {
     try {
-      return await this.authService.registerUser(input);
+      return await this.authService.registerBaseUser(input);
     } catch (error) {
       if (error instanceof CustomRpcException) {
         throw CustomRpcException.processException(error);

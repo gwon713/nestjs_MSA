@@ -1,5 +1,5 @@
 import { CustomConfigService } from '@libs/common/config/config.service';
-import { AuthenticateInput, RegisterUserInput } from '@libs/common/input';
+import { AuthenticateInput, RegisterBaseUserInput } from '@libs/common/input';
 import { AuthenticateOutput, Output } from '@libs/common/model';
 import { UtilService } from '@libs/common/util/util.service';
 import { Inject, Injectable, Logger } from '@nestjs/common';
@@ -16,8 +16,10 @@ export class AuthProxyService {
   ) {
     this.logger = new Logger();
   }
-  getAuth(): Observable<any> {
-    return this.client.send<any, any>({ cmd: 'helloAuth' }, 'hello').pipe();
+  healthCheck(): Observable<string> {
+    return this.client
+      .send<string, string>({ cmd: 'healthCheck' }, 'healthy')
+      .pipe();
   }
 
   authenticate(input: AuthenticateInput): Observable<AuthenticateOutput> {
@@ -29,9 +31,9 @@ export class AuthProxyService {
       .pipe();
   }
 
-  registerUser(input: RegisterUserInput): Observable<Output> {
+  registerBaseUser(input: RegisterBaseUserInput): Observable<Output> {
     return this.client
-      .send<Output, RegisterUserInput>({ cmd: 'registerUser' }, input)
+      .send<Output, RegisterBaseUserInput>({ cmd: 'registerBaseUser' }, input)
       .pipe();
   }
 }
