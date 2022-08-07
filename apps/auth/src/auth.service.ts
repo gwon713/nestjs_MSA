@@ -13,6 +13,7 @@ import { BaseUserEntity } from '@libs/database/entity';
 import { BaseUserRepository } from '@libs/database/repository';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import * as argon2 from 'argon2';
 import * as dayjs from 'dayjs';
 
 @Injectable()
@@ -107,7 +108,7 @@ export class AuthService {
       this.baseUserRepo.create({
         email: input.email,
         nickName: input.nickName,
-        password: input.password,
+        password: await argon2.hash(input.password),
         social: input.social,
         state: UserStatusType.REGISTERED,
       }),
