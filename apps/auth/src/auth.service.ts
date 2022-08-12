@@ -41,7 +41,7 @@ export class AuthService {
       );
     }
 
-    if (user.password != input.password) {
+    if ((await argon2.verify(user.password, input.password)) === false) {
       throw new CustomRpcException(
         CustomStatusCode.PASSWORD_INCORRECT,
         `{ email: ${user.email} }`,
