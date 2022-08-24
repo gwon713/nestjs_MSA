@@ -19,3 +19,20 @@ export const AUTH_FACTORY = {
   },
   inject: [CustomConfigService],
 };
+
+export const USER_FACTORY = {
+  provide: 'USER_SERVICE',
+  useFactory: async (config: CustomConfigService) => {
+    return ClientProxyFactory.create({
+      transport: Transport.RMQ,
+      options: {
+        urls: [config.rmqUrl],
+        queue: AppName.USER,
+        queueOptions: {
+          durable: false,
+        },
+      },
+    });
+  },
+  inject: [CustomConfigService],
+};
