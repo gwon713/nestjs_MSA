@@ -1,4 +1,14 @@
 import { UserSocialRouteType, UserStatusType } from '@libs/common/constant';
+import { Field, ObjectType } from '@nestjs/graphql';
+import {
+  IsDate,
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 import { Column, Entity } from 'typeorm';
 
 import { AbstractEntity } from '.';
@@ -9,6 +19,7 @@ import { AbstractEntity } from '.';
  * @extends AbstractTimeEntity
  */
 @Entity('base_user')
+@ObjectType()
 export class BaseUserEntity extends AbstractEntity {
   @Column({
     name: 'email',
@@ -16,6 +27,13 @@ export class BaseUserEntity extends AbstractEntity {
     length: 320,
     nullable: false,
     comment: 'user email',
+  })
+  @IsNotEmpty()
+  @IsString()
+  @IsEmail()
+  @Field(() => String, {
+    nullable: false,
+    description: '이메일',
   })
   email: string;
 
@@ -26,6 +44,13 @@ export class BaseUserEntity extends AbstractEntity {
     nullable: false,
     comment: 'user nickname',
   })
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(50)
+  @Field(() => String, {
+    nullable: false,
+    description: '닉네임',
+  })
   nickName!: string;
 
   @Column({
@@ -34,6 +59,13 @@ export class BaseUserEntity extends AbstractEntity {
     length: 255,
     nullable: false,
     comment: 'user password',
+  })
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(255)
+  @Field(() => String, {
+    nullable: false,
+    description: '닉네임',
   })
   password!: string;
 
@@ -45,6 +77,13 @@ export class BaseUserEntity extends AbstractEntity {
     default: UserSocialRouteType.LOCAL,
     comment: 'user social route',
   })
+  @IsNotEmpty()
+  @IsEnum(UserSocialRouteType)
+  @Field(() => UserSocialRouteType, {
+    nullable: false,
+    defaultValue: UserSocialRouteType.LOCAL,
+    description: '유저 소셜 타입',
+  })
   social!: UserSocialRouteType;
 
   @Column({
@@ -55,6 +94,13 @@ export class BaseUserEntity extends AbstractEntity {
     default: UserStatusType.REGISTERED,
     comment: 'user status type',
   })
+  @IsNotEmpty()
+  @IsEnum(UserSocialRouteType)
+  @Field(() => UserStatusType, {
+    nullable: false,
+    defaultValue: UserStatusType.REGISTERED,
+    description: '유저 상태',
+  })
   state!: UserStatusType;
 
   @Column({
@@ -63,7 +109,13 @@ export class BaseUserEntity extends AbstractEntity {
     nullable: true,
     comment: 'last login time',
   })
-  lastLoginAt?: Date | null;
+  @IsOptional()
+  @IsDate()
+  @Field(() => String, {
+    nullable: false,
+    description: '유저 마지막 로그인',
+  })
+  lastLoginAt?: Date;
 
   @Column({
     name: 'last_logout_at',
@@ -71,5 +123,11 @@ export class BaseUserEntity extends AbstractEntity {
     nullable: true,
     comment: 'last logout time',
   })
-  lastLogoutAt?: Date | null;
+  @IsOptional()
+  @IsDate()
+  @Field(() => String, {
+    nullable: false,
+    description: '유저 마지막 로그아웃',
+  })
+  lastLogoutAt?: Date;
 }
