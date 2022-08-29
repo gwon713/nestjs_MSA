@@ -90,35 +90,6 @@ export class AuthService {
     } as AuthenticateOutput;
   }
 
-  async registerBaseUser(input: RegisterBaseUserInput): Promise<Output> {
-    const user: BaseUserEntity = await this.baseUserRepo.findOne({
-      where: {
-        email: input.email,
-      },
-    });
-
-    if (user) {
-      throw new Error();
-    }
-
-    /**
-     * encrypt password
-     */
-    await this.baseUserRepo.save(
-      this.baseUserRepo.create({
-        email: input.email,
-        nickName: input.nickName,
-        password: await argon2.hash(input.password),
-        social: input.social,
-        state: UserStatusType.REGISTERED,
-      }),
-    );
-
-    return {
-      statusCode: CustomStatusCode.SUCCESS,
-    };
-  }
-
   async createAccessToken(
     aud: string,
     route: UserSocialRouteType,
