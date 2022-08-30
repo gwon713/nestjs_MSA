@@ -1,3 +1,4 @@
+import { ObjectType } from '@nestjs/graphql';
 import {
   BaseEntity,
   Column,

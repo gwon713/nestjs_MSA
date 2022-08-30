@@ -1,34 +1,25 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { BaseUserEntity } from '@libs/database/entity';
+import {
+  InputType,
+  IntersectionType,
+  PartialType,
+  PickType,
+} from '@nestjs/graphql';
 
-import { UserSocialRouteType } from '../constant';
 import { AbstractInput } from './abstract.input';
 
 /**
- * @TODO add validation
+ *
  */
 @InputType({ description: 'RegisterBaseUserInput' })
-export class RegisterBaseUserInput extends AbstractInput {
-  @Field(() => String, {
-    nullable: false,
-    description: '이메일',
-  })
-  email!: string;
-
-  @Field(() => String, {
-    nullable: false,
-    description: '비밀번호',
-  })
-  password!: string;
-
-  @Field(() => String, {
-    nullable: false,
-    description: '닉네임',
-  })
-  nickName!: string;
-
-  @Field(() => UserSocialRouteType, {
-    nullable: false,
-    description: '가입 계정 소셜',
-  })
-  social!: UserSocialRouteType;
-}
+export class RegisterBaseUserInput extends IntersectionType(
+  AbstractInput,
+  PartialType(
+    PickType(BaseUserEntity, [
+      'email',
+      'password',
+      'nickName',
+      'social',
+    ] as const),
+  ),
+) {}
