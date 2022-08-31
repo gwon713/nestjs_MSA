@@ -1,5 +1,6 @@
 import { CustomConfigService } from '@libs/common/config/config.service';
 import { CustomStatusCode, UserStatusType } from '@libs/common/constant';
+import { CustomRpcException } from '@libs/common/exception';
 import { RegisterBaseUserInput } from '@libs/common/input';
 import { Output } from '@libs/common/model';
 import { BaseUserEntity } from '@libs/database/entity';
@@ -25,7 +26,10 @@ export class UserService {
     });
 
     if (user) {
-      throw new Error();
+      throw new CustomRpcException(
+        CustomStatusCode.DUPLICATE_EMAIL,
+        `{ email: ${user.email} }`,
+      );
     }
 
     /**

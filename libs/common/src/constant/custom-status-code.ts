@@ -5,6 +5,7 @@ export enum CustomStatusCode {
   ERROR = 'ERROR',
   USER_NOT_FOUND = 'USER_NOT_FOUND',
   PASSWORD_INCORRECT = 'PASSWORD_INCORRECT',
+  DUPLICATE_EMAIL = 'DUPLICATE_EMAIL',
 }
 
 registerEnumType(CustomStatusCode, {
@@ -15,5 +16,6 @@ registerEnumType(CustomStatusCode, {
     ERROR: { description: 'ERROR' },
     USER_NOT_FOUND: { description: 'USER_NOT_FOUND' },
     PASSWORD_INCORRECT: { description: 'PASSWORD_INCORRECT' },
+    DUPLICATE_EMAIL: { description: 'DUPLICATE_EMAIL' },
   },
 });
