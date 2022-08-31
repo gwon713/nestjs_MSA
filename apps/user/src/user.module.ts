@@ -10,7 +10,6 @@ import { UserService } from './user.service';
   imports: [
     CommonModule,
     DatabaseModule,
-
     CustomTypeOrmModule.forFeature([BaseUserRepository]),
   ],
   controllers: [UserController],
