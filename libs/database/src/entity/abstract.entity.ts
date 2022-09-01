@@ -1,4 +1,5 @@
-import { ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 import {
   BaseEntity,
   Column,
@@ -11,10 +12,18 @@ import {
 /**
  * @abstract AbstractEntity
  */
+@ObjectType()
 export abstract class AbstractEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid', {
     name: 'id',
     comment: 'Primary Key',
+  })
+  @IsNotEmpty()
+  @IsUUID(4)
+  @Field(() => String, {
+    name: 'id',
+    nullable: false,
+    description: 'uuid',
   })
   id!: string;
 
@@ -51,5 +60,5 @@ export abstract class AbstractEntity extends BaseEntity {
     update: false,
     nullable: true,
   })
-  deletedAt?: Date | null;
+  deletedAt?: Date;
 }

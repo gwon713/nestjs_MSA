@@ -2,7 +2,7 @@ import { CustomConfigService } from '@libs/common/config/config.service';
 import { CustomStatusCode, UserStatusType } from '@libs/common/constant';
 import { CustomRpcException } from '@libs/common/exception';
 import { RegisterBaseUserInput } from '@libs/common/input';
-import { Output } from '@libs/common/model';
+import { BaseUserOutput, Output } from '@libs/common/model';
 import { BaseUserEntity } from '@libs/database/entity';
 import { BaseUserRepository } from '@libs/database/repository';
 import { Injectable } from '@nestjs/common';
@@ -48,5 +48,12 @@ export class UserService {
     return {
       statusCode: CustomStatusCode.SUCCESS,
     };
+  }
+
+  async fetchMyProfile(): Promise<BaseUserOutput> {
+    return {
+      statusCode: CustomStatusCode.SUCCESS,
+      data: await this.baseUserRepo.findOneBy({ id: '12dasodno12' }),
+    } as BaseUserOutput;
   }
 }

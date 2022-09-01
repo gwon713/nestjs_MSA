@@ -1,6 +1,6 @@
 import { CustomConfigService } from '@libs/common/config/config.service';
 import { RegisterBaseUserInput } from '@libs/common/input';
-import { Output } from '@libs/common/model';
+import { BaseUserOutput, Output } from '@libs/common/model';
 import { UtilService } from '@libs/common/util/util.service';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -16,9 +16,19 @@ export class UserProxyService {
   ) {
     this.logger = new Logger();
   }
+
   registerBaseUser(input: RegisterBaseUserInput): Observable<Output> {
     return this.client
       .send<Output, RegisterBaseUserInput>({ cmd: 'registerBaseUser' }, input)
+      .pipe();
+  }
+
+  fetchMyProfile(input: RegisterBaseUserInput): Observable<BaseUserOutput> {
+    return this.client
+      .send<BaseUserOutput, RegisterBaseUserInput>(
+        { cmd: 'fetchMyProfile' },
+        input,
+      )
       .pipe();
   }
 }
