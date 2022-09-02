@@ -1,10 +1,9 @@
 import { CommonModule } from '@libs/common';
 import { CustomConfigService } from '@libs/common/config/config.service';
-import { StrategyModule } from '@libs/common/strategy';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { APP_FILTER } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
+import { StrategyModule } from 'apps/gateway/src/strategy';
 
 import { ProxyModule } from './proxy/proxy.module';
 

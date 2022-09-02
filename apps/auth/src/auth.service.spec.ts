@@ -1,8 +1,8 @@
 import { CommonModule } from '@libs/common';
 import { CustomConfigService } from '@libs/common/config/config.service';
 import { UserServiceType, UserSocialRouteType } from '@libs/common/constant';
-import { StrategyModule } from '@libs/common/strategy';
 import { Test, TestingModule } from '@nestjs/testing';
+import { StrategyModule } from 'apps/gateway/src/strategy';
 import * as dayjs from 'dayjs';
 
 import { AuthController } from './auth.controller';
