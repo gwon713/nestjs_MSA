@@ -5,15 +5,20 @@ import { RegisterBaseUserInput } from '@libs/common/input';
 import { BaseUserOutput, Output } from '@libs/common/model';
 import { BaseUserEntity } from '@libs/database/entity';
 import { BaseUserRepository } from '@libs/database/repository';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as argon2 from 'argon2';
 
 @Injectable()
 export class UserService {
+  private readonly logger: Logger;
+
   constructor(
     private readonly configService: CustomConfigService,
     private readonly baseUserRepo: BaseUserRepository,
-  ) {}
+  ) {
+    this.logger = new Logger();
+  }
+
   async healthCheck(): Promise<string> {
     return 'healthy';
   }

@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class UserProxyService {
   private readonly logger: Logger;
+
   constructor(
     private readonly configService: CustomConfigService,
     private readonly utilService: UtilService,

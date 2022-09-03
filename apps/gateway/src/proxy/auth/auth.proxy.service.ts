@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class AuthProxyService {
   private readonly logger: Logger;
+
   constructor(
     private readonly configService: CustomConfigService,
     private readonly utilService: UtilService,
@@ -16,6 +17,7 @@ export class AuthProxyService {
   ) {
     this.logger = new Logger();
   }
+
   healthCheck(): Observable<string> {
     return this.client
       .send<string, string>({ cmd: 'healthCheck' }, 'healthy')

@@ -1,20 +1,25 @@
 import { CustomRpcException } from '@libs/common/exception';
 import { RegisterBaseUserInput } from '@libs/common/input';
 import { BaseUserOutput, Output } from '@libs/common/model';
-import { Controller, HttpException } from '@nestjs/common';
+import { Controller, HttpException, Logger } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { UserService } from './user.service';
 
 @Controller()
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  private readonly logger: Logger;
+
+  constructor(private readonly userService: UserService) {
+    this.logger = new Logger();
+  }
 
   @MessagePattern({ cmd: 'healthCheck' })
   async helloAuth(): Promise<string> {
     try {
       return await this.userService.healthCheck();
     } catch (error) {
+      this.logger.error(error);
       if (error instanceof CustomRpcException) {
         throw CustomRpcException.processException(error);
       }
@@ -27,6 +32,7 @@ export class UserController {
     try {
       return await this.userService.registerBaseUser(input);
     } catch (error) {
+      this.logger.error(error);
       if (error instanceof CustomRpcException) {
         throw CustomRpcException.processException(error);
       }
@@ -39,6 +45,7 @@ export class UserController {
     try {
       return await this.userService.fetchMyProfile();
     } catch (error) {
+      this.logger.error(error);
       if (error instanceof CustomRpcException) {
         throw CustomRpcException.processException(error);
       }

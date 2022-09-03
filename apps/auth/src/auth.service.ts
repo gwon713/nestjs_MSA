@@ -6,23 +6,28 @@ import {
   UserStatusType,
 } from '@libs/common/constant';
 import { CustomRpcException } from '@libs/common/exception';
-import { AuthenticateInput, RegisterBaseUserInput } from '@libs/common/input';
+import { AuthenticateInput } from '@libs/common/input';
 import { JwtPayload } from '@libs/common/interface';
 import { AuthenticateOutput, Authentication, Output } from '@libs/common/model';
 import { BaseUserEntity } from '@libs/database/entity';
 import { BaseUserRepository } from '@libs/database/repository';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 import * as dayjs from 'dayjs';
 
 @Injectable()
 export class AuthService {
+  private readonly logger: Logger;
+
   constructor(
     private readonly configService: CustomConfigService,
     private jwtService: JwtService,
     private readonly baseUserRepo: BaseUserRepository,
-  ) {}
+  ) {
+    this.logger = new Logger();
+  }
+
   async healthCheck(): Promise<string> {
     return 'healthy';
   }
