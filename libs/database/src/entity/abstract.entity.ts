@@ -1,5 +1,11 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import {
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsUUID,
+} from 'class-validator';
 import {
   BaseEntity,
   Column,
@@ -34,6 +40,8 @@ export abstract class AbstractEntity extends BaseEntity {
     comment: 'Sequence Index',
   })
   @Generated('increment')
+  @IsNotEmpty()
+  @IsNumber()
   seq!: number;
 
   @CreateDateColumn({
@@ -43,6 +51,8 @@ export abstract class AbstractEntity extends BaseEntity {
     update: false,
     nullable: false,
   })
+  @IsNotEmpty()
+  @IsDate()
   createdAt!: Date;
 
   @UpdateDateColumn({
@@ -51,6 +61,8 @@ export abstract class AbstractEntity extends BaseEntity {
     comment: 'updated time',
     nullable: false,
   })
+  @IsNotEmpty()
+  @IsDate()
   updatedAt!: Date;
 
   @Column({
@@ -60,5 +72,7 @@ export abstract class AbstractEntity extends BaseEntity {
     update: false,
     nullable: true,
   })
+  @IsOptional()
+  @IsDate()
   deletedAt?: Date;
 }
